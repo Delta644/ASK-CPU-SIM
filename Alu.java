@@ -1,26 +1,84 @@
 public class Alu {
 
-    public int add(int val1, int val2){
-      return 0;
-    };
+    private final Flags flags;
 
-    public int sub(int val1, int val2){
-        return 0;
-    };
+    public Alu(Flags flags) {
+        this.flags = flags;
+    }
 
-    public int and(int val1, int val2){
-        return 0;
-    };
+    public int add(int a, int b){
+        a &= 0xFF;  b &= 0xFF;
 
-    public int or(int val1, int val2){
-        return 0;
-    };
+        int full = a+b;
+        int res = full & 0xFF;
 
-    public int xor(int val1, int val2){
-        return 0;
-    };
+        flags.setCarry(full > 0xFF);
+        flags.setOverflow((~(a ^ b) & (a ^ res) & 0x80) != 0);
+        flags.setZero(res == 0);
+        flags.setNegative((res & 0x80) != 0);
 
-    public int not(int val1, int val2){
-        return 0;
-    };
+        return res;
+
+    }
+
+
+    //carry = true przy wystąpieniu pozyczki
+    public int sub(int a, int b) {
+
+        a &= 0xFF;
+        b &= 0xFF;
+
+        int full = a - b;
+        int res = full & 0xFF;
+
+        flags.setCarry(full < 0xFF);
+        flags.setOverflow(((a ^ b) & (a ^ res) & 0x80) != 0);
+
+        flags.setZero(res == 0);
+        flags.setNegative((res & 0x80) != 0);
+        flags.setNegative((res & 0x80) != 0);
+        return res;
+    }
+
+    public int and(int a, int b){
+        a &= 0xFF;  b &= 0xFF;
+
+        int res = a & b;
+        flags.setZero(res == 0);
+        flags.setNegative((res & 0x80) != 0);
+
+        return res;
+    }
+
+    public int or(int a, int b){
+        a &= 0xFF;  b &= 0xFF;
+
+        int res = a | b;
+        flags.setZero(res == 0);
+        flags.setNegative((res & 0x80) != 0);
+
+        return res;
+    }
+
+    public int xor(int a, int b){
+
+        a &= 0xFF;  b &= 0xFF;
+
+        int res = a ^ b;
+        flags.setZero(res == 0);
+        flags.setNegative((res & 0x80) != 0);
+
+        return res;
+
+    }
+
+    public int not(int a){
+        a &= 0xFF;
+
+        int res = (~a) & 0xFF;
+        flags.setZero(res == 0);
+        flags.setNegative((res & 0x80) != 0);
+
+        return res;
+    }
 }

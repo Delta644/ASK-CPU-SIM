@@ -11,7 +11,15 @@ public class Memory {
     }
 
     public void write(int addr, int value) {
-//
+
+        //test value
+        if (value < 0 || value > 255) {
+            throw new IllegalArgumentException(
+                    "Byte value out of range: " + value
+            );
+        }
+
+        cells[addr] = (byte) (value & 0xFF);
     }
 
 
