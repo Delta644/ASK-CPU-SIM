@@ -1,9 +1,9 @@
-public class Registers {
+public class Register {
     private final String name;
     private final int mask;
     private int value;
 
-    public Registers(String name, int bits) {
+    public Register(String name, int bits) {
         this.name = name;
         this.mask = (1 << bits) - 1;
     }
