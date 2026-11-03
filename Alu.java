@@ -18,27 +18,22 @@ public class Alu {
         flags.setNegative((res & 0x80) != 0);
 
         return res;
-
     }
 
+        public int sub(int a, int b) {
+            a &= 0xFF;
+            b &= 0xFF;
 
-    //carry = true przy wystąpieniu pozyczki
-    public int sub(int a, int b) {
+            int full = a - b;
+            int res = full & 0xFF;
 
-        a &= 0xFF;
-        b &= 0xFF;
+            flags.setCarry(a < b);
+            flags.setOverflow(((a ^ b) & (a ^ res) & 0x80) != 0);
 
-        int full = a - b;
-        int res = full & 0xFF;
-
-        flags.setCarry(full < 0xFF);
-        flags.setOverflow(((a ^ b) & (a ^ res) & 0x80) != 0);
-
-        flags.setZero(res == 0);
-        flags.setNegative((res & 0x80) != 0);
-        flags.setNegative((res & 0x80) != 0);
-        return res;
-    }
+            flags.setZero(res == 0);
+            flags.setNegative((res & 0x80) != 0);
+            return res;
+        }
 
     public int and(int a, int b){
         a &= 0xFF;  b &= 0xFF;
