@@ -19,6 +19,7 @@ public class Register {
 
 
 
-   // @Override public String toString() {
-   // }
+    @Override public String toString() {
+        return String.format("%s=0x%02X", name, value);
+    }
 }

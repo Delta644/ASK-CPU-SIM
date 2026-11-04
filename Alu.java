@@ -24,6 +24,7 @@ public class Alu {
             a &= 0xFF;
             b &= 0xFF;
 
+
             int full = a - b;
             int res = full & 0xFF;
 
@@ -42,6 +43,9 @@ public class Alu {
         flags.setZero(res == 0);
         flags.setNegative((res & 0x80) != 0);
 
+        flags.setCarry(false);
+        flags.setOverflow(false);
+
         return res;
     }
 
@@ -51,6 +55,9 @@ public class Alu {
         int res = a | b;
         flags.setZero(res == 0);
         flags.setNegative((res & 0x80) != 0);
+
+        flags.setCarry(false);
+        flags.setOverflow(false);
 
         return res;
     }
@@ -63,6 +70,9 @@ public class Alu {
         flags.setZero(res == 0);
         flags.setNegative((res & 0x80) != 0);
 
+        flags.setCarry(false);
+        flags.setOverflow(false);
+
         return res;
 
     }
@@ -73,6 +83,9 @@ public class Alu {
         int res = (~a) & 0xFF;
         flags.setZero(res == 0);
         flags.setNegative((res & 0x80) != 0);
+
+        flags.setCarry(false);
+        flags.setOverflow(false);
 
         return res;
     }
